@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Text Summarizer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'import_materials.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 80%;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex; /* Use flexbox for layout */
+            flex-direction: row; /* Arrange elements horizontally */
+            background-color: #3a86ff;
+        }
+
+        #summary-container {
+            flex: 1; /* Take up 50% of the container's width */
+            padding: 0 10px; /* Add some space between containers */
+        }
+
+        button {
+            background-color: #4361EE;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%; /* Make button full width */
+            margin-bottom: 10px; /* Add some space below button */
+        }
+
+        button:hover {
+            background-color: #1A237E;
+        }
+
+        h2 {
+            margin-top: 0; /* Remove default margin */
+        }
+
+        p {
+            margin-top: 0; /* Remove default margin */
+        }
+        #summary_result {
+            display: none; /* Initially hide the summary result container */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Styles for summary content */
+        #summary_content {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="summary-container">
+            <h1>PDF Text Summarizer</h1>
+            <form id="pdf_upload_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="pdf_file">Upload PDF:</label><br>
+                <input type="file" id="pdf_file" name="pdf_file"><br><br>
+                <button type="button" onclick="uploadPDF()">Generate Summary</button>
+            </form>
+            <div id="summary_result" style="display: none;">
+                <h2>Generated Summary:</h2>
+                <p id="summary_content"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function uploadPDF() {
+            const formData = new FormData();
+            const pdfFile = document.getElementById('pdf_file').files[0];
+            formData.append('pdf_file', pdfFile);
+    
+            const csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    
+            $.ajax({
+                type: 'POST',
+                url: '{% url "generate_summary" %}',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {'X-CSRFToken': csrftoken},
+                success: function(response) {
+                    $('#summary_content').text(response.summary);
+                    $('#summary_result').show();  // Show the summary container
+                },
+                error: function(error) {
+                    alert('Error generating PDF summary');
+                }
+            });
+        }
+    </script>
+    
+</body>
+</html>

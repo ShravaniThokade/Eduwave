@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Summarizer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'import_materials.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 80%;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex; /* Use flexbox for layout */
+            flex-direction: row; /* Arrange elements horizontally */
+            background-color: #3a86ff;
+        }
+
+        #summary-container {
+            flex: 1; /* Take up 50% of the container's width */
+            padding: 0 10px; /* Add some space between containers */
+        }
+
+
+        button {
+            background-color: #4361EE;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%; /* Make button full width */
+            margin-bottom: 10px; /* Add some space below button */
+        }
+
+        button:hover {
+            background-color: #1A237E;
+        }
+
+        h2 {
+            margin-top: 0; /* Remove default margin */
+        }
+
+        p {
+            margin-top: 0; /* Remove default margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="summary-container">
+            <h1>YouTube Summarizer</h1>
+            <form method="post">
+                {% csrf_token %}
+                <label for="youtube_video">Enter YouTube URL:</label><br>
+                <input type="text" id="youtube_url" name="youtube_video"><br><br>
+                <button type="submit">Generate Summary</button>
+            </form>
+            {% if summary %}
+                <h2>Generated Summary:</h2>
+                <p>{{ summary }}</p>
+                <a href="{% url 'generate_summary' %}?text={{ summary }}" class="btn-link btn.transparent" download>Download Summary (PDF)</a>
+            {% endif %} 
+        </div>
+    </div>
+</body>
+</html>

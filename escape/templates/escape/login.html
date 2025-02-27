@@ -1,0 +1,93 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Poppins;
+            margin: 0;
+            padding: 0;
+            font-size: 10px;
+            color: #ffffff;
+            background-image: url("{% static 'static/media/register-bg.png'%}");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns of equal width */
+            gap: 30px; /* Gap between columns */
+            padding: 50px;
+            
+        }
+
+        .left-section {
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .right-section {
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column; /* Stack child elements vertically */
+            align-items: center; /* Center child elements horizontally */
+            justify-content: center; /* Center child elements vertically */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none; /* Remove border */
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #082B51;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #00D8EF;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="left-section">
+            <div class="gif">
+                <img src="{% static 'static/media/login.gif'%}" alt="GIF" />
+            </div>
+        </div>
+        <div class="right-section">
+            <h1>Login to Mindscape!</h1>
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                {{ loginform.as_p }}
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

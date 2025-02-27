@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Materials</title>
+    <style>
+        body {
+            color: #ffffff;
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: right;
+            justify-content: center;
+            position: relative; 
+            height: 100vh;
+        }
+        
+        .image {
+            width: 100vw; /* Set the width to cover the entire viewport */
+            height: auto; /* Maintain aspect ratio */
+            transition: transform 1.1s ease-in-out;
+            transition-delay: 0.4s;
+        }        
+
+        #container {
+            padding: 20px;
+            text-align: center;
+            height: 400px;
+            width: 700px;
+            gap: 20px;
+            z-index: 10;
+            justify-content: center;
+            position: absolute; /* Set absolute positioning for the container */
+            top: 50%; /* Position the container at the vertical center */
+            left: 30%; /* Position the container at the horizontal center */
+            transform: translate(-50%, -50%); /* Center the container */
+            opacity: 0.9; 
+            display: flex; /* Set display to flex */
+            flex-direction: row; /* Align children vertically */
+            align-items: left; /* Align children horizontally */
+        }
+
+        .card {
+            height: 400px;
+            width: 100%; /* Adjust the width to make the cards narrower */
+            background-color: #4361EE;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            padding: 20px;
+            transition: transform 0.5s ease-in-out;
+            margin: 0 10px; /* Add margin to create spacing between cards */
+        }
+
+        h4 {
+            color: #ffffff;
+        }
+
+
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #00D8EF;
+            color: #000000;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #00D8EE;
+        }
+
+        .image2 {
+            width: 100%; /* Set the image width to fill the container */
+            max-width: 50%;
+            height: auto; /* Maintain aspect ratio */
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+        .description {
+            position: absolute;
+            top: 50px;
+            left: 30%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        .description h1 {
+            color: #000000;
+            font-size: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div class="description">
+        <h1>Import materials from different resources</h1>
+    </div>
+    <img src="{% static '/static/media/import_materials.png' %}" class="image">
+    <div id="container">
+        <div class="card">
+            <h4>Generate notes from youtube videos</h4>
+            <a href="{% url 'youtube' %}" class="btn-link"><button>Generate Notes</button></a>
+            <img src="{% static '/static/media/import_youtube.jpg' %}" class="image2" alt="YouTube Image">
+        </div>
+        <div class="card">
+            <h4>Generate notes from pdf on you local device</h4>
+            <a href="{% url 'generate_summary' %}" class="btn-link"><button>Generate Notes</button></a>
+            <img src="{% static '/static/media/local_device.jpg' %}" class="image2" alt="pdf image">
+        </div>
+    </div>
+</body>
+</html>

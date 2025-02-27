@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Study Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "montserrat";
+            color: #ffffff;
+            scroll-behavior: smooth;
+            border: none;
+            outline: none;
+        }
+        
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #082B51;
+        }
+        #nav {
+            height: 130px;
+            width: 100%;
+            /* background-color: red; */
+            display: flex;
+            align-items: center;
+            padding: 0 120px;
+            left: 10%;
+            gap: 50px;
+            position: fixed;
+            justify-content: flex-center;
+            z-index: 999;
+          }
+          
+          #nav h4 {
+            text-transform: uppercase;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 1.15vw;
+            color: #ffffff;
+          }
+
+        .image {
+            width: 100%;
+            transition: transform 1.1s ease-in-out;
+            transition-delay: 0.4s;
+          }
+          .description {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            padding: 20px; /* Add padding to create space for the button */
+        }
+        .description h1 {
+            font: Poppins;
+            font-style: extra-bold;
+            font-size: 80px;
+            margin-bottom: 10px;
+            text-align: center;
+            center: 50%;
+        }
+        
+        .description p {
+            font-size: 20px;
+            text-align: center;
+            center: 50%;
+        }        
+        .get-started-button {
+            position: absolute; /* Keep it as absolute positioning */
+            top: calc(50% + 150px); /* Adjust the top value to position it below the description */
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #24B1ED;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            z-index: 3;
+            transition: background-color 0.3s;
+        }
+        
+        .get-started-button:hover {
+            background-color: #4E67C3;
+        }
+        .image {
+            width: 100%;
+            transition: transform 1.1s ease-in-out;
+            transition-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="nav">
+            <h4>Home</h4>
+            <h4>Explore</h4>
+            <h4>About</h4>
+            <h4>Contact Us</h4>
+            <h4>Sign In</h4>
+        </div>
+    </header>
+        {% load static %}
+        <img src="{% static 'static/media/study-design.jpg' %}" alt="My image" class="image">
+        <div class="description">
+            <h1>MINDSCAPE</h1>
+            <p>Mindscape is a cutting-edge AI-powered study companion designed to revolutionize the way you learn and study. With Mindscape, you can transform your educational experience, making it more efficient, interactive, and enjoyable.</p>
+        </div>
+        <a href="{% url 'register' %}" class="get-started-button">Get Started</a>
+</body>
