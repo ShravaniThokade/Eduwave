@@ -8,11 +8,12 @@ from transformers import pipeline
 import numpy as np
 from youtube_transcript_api import YouTubeTranscriptApi
 from django.views.decorators.csrf import csrf_exempt
-import fitz
+import pymupdf
 import sumy
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
+import tempfile
 
 
 def homepage(request):
@@ -103,17 +104,20 @@ def generate_summary(request):
     if request.method == 'POST' and request.FILES.get('pdf_file'):
         try:
             pdf_file = request.FILES['pdf_file']
+            print(f"📄 Received file: {pdf_file.name}")
 
             # Save the uploaded PDF temporarily
-            with open('temp.pdf', 'wb') as f:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_pdf:
                 for chunk in pdf_file.chunks():
-                    f.write(chunk)
-
+                    temp_pdf.write(chunk)
+                temp_pdf_path = temp_pdf.name
+                print(f"📂 Saved temporary file at: {temp_pdf_path}")
             # Open the PDF file and extract text content
-            doc = fitz.open('temp.pdf')
+            doc = pymupdf.open(temp_pdf_path)
             text = ""
             for page in doc:
                 text += page.get_text()
+                print(f"📝 Extracted text from page: {text[:100]}...")
 
             # Use Sumy library for text summarization
             parser = PlaintextParser.from_string(text, Tokenizer('english'))
@@ -125,6 +129,7 @@ def generate_summary(request):
 
             return JsonResponse({'summary': summary_text})
         except Exception as e:
+            print(f"❌ Error reading PDF: {e}")
             return JsonResponse({'error': str(e)}, status=500)
     else:
         return render(request, 'escape/pdf_summary.html')
