@@ -26,18 +26,26 @@
             background-color: #082B51;
         }
         #nav {
-            height: 130px;
-            width: 100%;
-            /* background-color: red; */
-            display: flex;
-            align-items: center;
-            padding: 0 120px;
-            left: 10%;
-            gap: 50px;
-            position: fixed;
-            justify-content: flex-center;
-            z-index: 999;
-          }
+    height: 80px; /* Reduced height for a cleaner look */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centering the navigation */
+    gap: 50px; /* Spacing between nav items */
+    background-color: rgba(15, 15, 16, 0.492); /* Semi-transparent background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+    z-index: 999;
+    padding: 0 20px;
+}
+/* Styling for Navbar Items */
+#nav h4 {
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+}
           
           #nav h4 {
             text-transform: uppercase;
@@ -46,7 +54,6 @@
             font-size: 1.15vw;
             color: #ffffff;
           }
-
         .image {
             width: 100%;
             transition: transform 1.1s ease-in-out;
@@ -94,12 +101,75 @@
             background-color: #4E67C3;
         }
         .image {
-            width: 100%;
-            transition: transform 1.1s ease-in-out;
-            transition-delay: 0.4s;
-        }
+    width: 100%;
+    filter: brightness(50%); /* Darkens the image */
+    transition: transform 1.1s ease-in-out;
+    transition-delay: 0.4s;
+}
+/* Features Section */
+#features {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #0A2A43;
+}
+#features h2 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 40px;
+}
+/* Feature Cards Container */
+.feature-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+/* Feature Card */
+.feature-card {
+    background: #ffffff;
+    color: #082B51;
+    padding: 30px;
+    width: 250px;
+    text-align: center;
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.feature-card i {
+    font-size: 40px;
+    color: #24B1ED;
+    margin-bottom: 15px;
+}
+.feature-card h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+/* Hidden Description */
+.feature-desc {
+    font-size: 1rem;
+    color: #ffffff;
+    background: #24B1ED;
+    padding: 15px;
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    transition: bottom 0.3s ease-in-out;
+}
+/* Hover Effect */
+.feature-card:hover {
+    transform: scale(1.1);
+}
+.feature-card:hover .feature-desc {
+    bottom: 0;
+}
     </style>
 </head>
+
 <body>
     <header>
         <div id="nav">
@@ -107,14 +177,44 @@
             <h4>Explore</h4>
             <h4>About</h4>
             <h4>Contact Us</h4>
-            <h4>Sign In</h4>
+            <h4>Login</h4>
         </div>
     </header>
         {% load static %}
         <img src="{% static 'static/media/study-design.jpg' %}" alt="My image" class="image">
         <div class="description">
-            <h1>MINDSCAPE</h1>
-            <p>Mindscape is a cutting-edge AI-powered study companion designed to revolutionize the way you learn and study. With Mindscape, you can transform your educational experience, making it more efficient, interactive, and enjoyable.</p>
+            <h1>EDUWAVE</h1>
+            <h2>Your AI-Powered Study Companion!</h2>
+            <p>Eduwave is a cutting-edge AI-powered study companion designed to revolutionize the way you learn and study. With Eduwave, you can transform your educational experience, making it more efficient, interactive, and enjoyable.</p>
         </div>
         <a href="{% url 'register' %}" class="get-started-button">Get Started</a>
+        <section id="features">
+            <h2>Why Choose Mindscape?</h2>
+            <div class="feature-container">
+                <div class="feature-card">
+                    <i class="fa fa-youtube-play"></i>
+                    <h3>YouTube Video Summarization</h3>
+                    <p class="feature-desc">Upload a link & get instant AI-generated summaries.</p>
+                </div>
+        
+                <div class="feature-card">
+                    <i class="fa fa-file-pdf-o"></i>
+                    <h3>PDF Summarization</h3>
+                    <p class="feature-desc">Extract key points from any document for quick learning.</p>
+                </div>
+        
+                <div class="feature-card">
+                    <i class="fa fa-question-circle"></i>
+                    <h3>MCQ Generator</h3>
+                    <p class="feature-desc">Turn summaries into interactive quiz questions instantly.</p>
+                </div>
+        
+                <div class="feature-card">
+                    <i class="fa fa-book"></i>
+                    <h3>AI Flashcards</h3>
+                    <p class="feature-desc">Automatically generate flashcards to enhance memory retention.</p>
+                </div>
+            </div>
+        </section>
+        
 </body>

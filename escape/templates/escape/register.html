@@ -7,92 +7,144 @@
     <title>Register</title>
     <style>
         body {
-            font-family: Poppins;
+            font-family: Poppins, sans-serif;
             margin: 0;
             padding: 0;
-            font-size: 10px;
-            color: #ffffff;
             background-image: url("{% static 'static/media/register-bg.png'%}");
             background-size: cover;
             background-position: center;
-        }
-
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Two columns of equal width */
-            gap: 30px; /* Gap between columns */
-            padding: 50px;
-            
-        }
-
-        .left-section {
+            display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 10px;
+            height: 100vh;
         }
-
-        .right-section {
-            border-radius: 10px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column; /* Stack child elements vertically */
-            align-items: center; /* Center child elements horizontally */
-            justify-content: center; /* Center child elements vertically */
+        /* Background Overlay */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
         }
-
-        h1 {
+        /* Registration Box */
+        .register-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 12px;
+            width: 450px;  /* Increased width */
+            height: auto;  /* Adjusts dynamically */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             text-align: center;
-            color: #ffffff;
-            margin-bottom: 20px;
+            color: white;
         }
-
-        form {
-            width: 100%;
+        .gif img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 10px;
         }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
+        h1 {
+            font-size: 1.6rem;
             margin-bottom: 15px;
-            border: none; /* Remove border */
-            border-radius: 5px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-box {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1rem;
             box-sizing: border-box;
         }
-
-        input[type="submit"] {
-            background-color: #082B51;
-            color: white;
-            cursor: pointer;
+        .input-box input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
         }
-
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+        .input-box input:focus ~ label,
+        .input-box input:not(:placeholder-shown) ~ label {
+            top: 8px;
+            font-size: 0.75rem;
+            color: white;
+        }
+        input[type="submit"] {
+            background-color: #24B1ED;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            transition: background 0.3s;
+        }
         input[type="submit"]:hover {
             background-color: #00D8EF;
         }
-
-        .gif img {
-            width: 100%;
-            display: block;
-            border-radius: 10px;
+        /* Optional: Add a login link */
+        .login-link {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .login-link a {
+            color: #24B1ED;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <div class="left-section">
-            <div class="gif">
-                <img src="{% static 'static/media/register.gif'%}" alt="GIF" />
+    <!-- Background Overlay -->
+    <div class="overlay"></div>
+    <div class="register-container">
+        <!-- <div class="gif">
+            <img src="{% static 'static/media/register.gif'%}" alt="GIF" />
+        </div> -->
+        <h1>Register</h1>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            
+            <div class="input-box">
+                <input type="text" name="username" placeholder=" " required>
+                <label>Username</label>
             </div>
-        </div>
-        <div class="right-section">
-            <h1>Welcome to Mindscape!</h1>
-            <form method="POST" autocomplete="off">
-                {% csrf_token %}
-                {{ registerform.as_p }}
-                <input type="submit" value="Register" />
-            </form>
+            
+            <div class="input-box">
+                <input type="email" name="email" placeholder=" " required>
+                <label>Email</label>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password1" placeholder=" " required>
+                <label>Password</label>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password2" placeholder=" " required>
+                <label>Confirm Password</label>
+            </div>
+            <input type="submit" value="Register" />
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
         </div>
     </div>
 </body>
