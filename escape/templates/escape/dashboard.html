@@ -52,6 +52,7 @@
             font-size: 1rem;
             border-radius: 8px;
             transition: 0.3s;
+            cursor: pointer;
         }
         .nav-panel a i {
             margin-right: 10px;
@@ -69,6 +70,8 @@
             padding: 40px;
             text-align: center;
             color: white;
+            position: relative;
+            width: 100%;
         }
         .main-content h1 {
             font-size: 2.5rem;
@@ -77,6 +80,28 @@
         .main-content p {
             font-size: 1.2rem;
             margin-bottom: 30px;
+        }
+        /* Profile Section */
+        .profile-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: none; /* Initially hidden */
+        }
+        .profile-container h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .profile-container p {
+            font-size: 1rem;
+            color: white;
         }
         /* Card Section */
         .cards-container {
@@ -133,17 +158,26 @@
 <body>
     <!-- Sidebar -->
     <div class="nav-panel">
-        <h2>Mindscape</h2>
+        <h2>EDUWAVE</h2>
         <a href="#"><i class="fas fa-compass"></i> Discover</a>
-        <a href="#"><i class="fas fa-user"></i> Profile</a>
+        <a href="#" id="profile-btn"><i class="fas fa-user"></i> Profile</a>
         <a href="#"><i class="fas fa-bullseye"></i> Goals</a>
         <a href="#"><i class="fas fa-question-circle"></i> Help</a>
         <a href="{% url 'user_logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
+    
     <!-- Main Content -->
     <div class="main-content">
         <h1>Welcome!</h1>
         <p>Hope you're doing well. Are you ready to study?</p>
+
+        <!-- Profile Section (Initially Hidden) -->
+        <div class="profile-container" id="profile-container">
+            <h3>User Profile</h3>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <p><strong>Username:</strong> {{ request.user.username }}</p>
+        </div>
+
         <!-- Cards Section -->
         <div class="cards-container">
             <div class="card">
@@ -158,12 +192,6 @@
                 <p>Generate notes from various resources with ease.</p>
                 <a href="{% url 'import_materials' %}">View Details</a>
             </div>
-            <!-- <div class="card">
-                <img src="/static/media/transcription.png" alt="Smart Transcription">
-                <h4>Smart Transcription</h4>
-                <p>Record live lectures and instantly generate notes.</p>
-                <a href="{% url 'transcription' %}">View Details</a>
-            </div> -->
             <div class="card">
                 <img src="/static/media/quiz.jpg" alt="Test your knowledge">
                 <h4>Test your Knowledge</h4>
@@ -172,5 +200,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Toggle profile visibility on clicking "Profile"
+        document.getElementById("profile-btn").addEventListener("click", function() {
+            var profileContainer = document.getElementById("profile-container");
+            if (profileContainer.style.display === "none" || profileContainer.style.display === "") {
+                profileContainer.style.display = "block";
+            } else {
+                profileContainer.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>

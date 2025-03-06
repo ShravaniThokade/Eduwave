@@ -45,7 +45,7 @@ def login(request):
 
 def user_logout(request):
     auth.logout(request)
-    return redirect("")
+    return redirect("login")
 
 @login_required(login_url="login")
 def dashboard(request):

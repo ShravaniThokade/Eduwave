@@ -6,77 +6,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Video Summarizer</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Body Styling */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url("{% static 'import_materials.png' %}");
-            background-size: cover;
-            background-repeat: no-repeat;
-            height: 100vh;
+            background: linear-gradient(135deg, #3a86ff, #8338ec);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffffff;
+            height: 100vh;
+            color: white;
+            text-align: center;
         }
 
+        /* Glassmorphic Container */
         .container {
-            max-width: 800px;
-            width: 80%;
-            padding: 20px;
-            border-radius: 10px;
-            display: flex; /* Use flexbox for layout */
-            flex-direction: row; /* Arrange elements horizontally */
-            background-color: #3a86ff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
         }
 
-        #summary-container {
-            flex: 1; /* Take up 50% of the container's width */
-            padding: 0 10px; /* Add some space between containers */
+        /* Heading */
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
         }
 
-
-        button {
-            background-color: #4361EE;
-            color: #ffffff;
+        /* Input Field */
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+            border-radius: 10px;
             font-size: 16px;
-            width: 100%; /* Make button full width */
-            margin-bottom: 10px; /* Add some space below button */
+            text-align: center;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: 0.3s ease;
         }
 
-        button:hover {
-            background-color: #1A237E;
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        h2 {
-            margin-top: 0; /* Remove default margin */
+        input[type="text"]:focus {
+            background: rgba(255, 255, 255, 0.4);
         }
 
-        p {
-            margin-top: 0; /* Remove default margin */
+        /* Buttons */
+        button, .download-btn {
+            background: linear-gradient(135deg, #ffcc00, #ff6600);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+            box-shadow: 0px 5px 15px rgba(255, 153, 0, 0.3);
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        button:hover, .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 20px rgba(255, 153, 0, 0.5);
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <div id="summary-container">
-            <h1>YouTube Summarizer</h1>
-            <form method="post">
-                {% csrf_token %}
-                <label for="youtube_video">Enter YouTube URL:</label><br>
-                <input type="text" id="youtube_url" name="youtube_video"><br><br>
-                <button type="submit">Generate Summary</button>
-            </form>
-            {% if summary %}
-                <h2>Generated Summary:</h2>
+        <h1>🎥 YouTube Video Summarizer</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" id="youtube_url" name="youtube_video" placeholder="Enter YouTube URL here">
+            <button type="submit">✨ Generate Summary</button>
+        </form>
+
+        {% if summary %}
+            <h2>📜 Summary:</h2>
+            <div class="summary-box">
                 <p>{{ summary }}</p>
-                <a href="{% url 'generate_summary' %}?text={{ summary }}" class="btn-link btn.transparent" download>Download Summary (PDF)</a>
-            {% endif %} 
-        </div>
+            </div>
+            <a href="{% url 'generate_summary' %}?text={{ summary }}" class="download-btn" download>⬇ Download Summary (PDF)</a>
+        {% endif %}
     </div>
+
 </body>
 </html>
