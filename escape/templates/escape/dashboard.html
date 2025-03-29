@@ -29,8 +29,8 @@
         body {
             height: 100vh;
             display: flex;
-            background-image: url('/static/media/explore-study.png');
-            background-size: cover;
+            /* background-image: url('/static/media/explore-study.png');
+            background-size: cover; */
             background-position: center;
             color: antiquewhite;
         }
@@ -114,7 +114,7 @@
             color: white;
         }
         /* Card Section */
-        .cards-container {
+        /* .cards-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -161,7 +161,19 @@
         }
         .card a:hover {
             background: #008FB3;
-        }
+        } */
+        .main-content {
+  position: absolute;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+}
+
+.sidebar.open ~ .main-content {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
 
         .sidebar {
   margin: 0;
@@ -405,21 +417,21 @@
             <li>
                 <a href="{% url 'study_set' %}">
                     <i class='bx bx-user'></i>
-                    <span class="links_name">Profile</span>
+                    <span class="links_name">Study Set</span>
                 </a>
-                <span class="tooltip">Profile</span>
+                <span class="tooltip">Study Set</span>
             </li>
             <li>
                 <a href="{% url 'import_materials' %}">
                     <i class="fa-solid fa-bowl-food"></i>
-                    <span class="links_name">Donation Requests</span>
+                    <span class="links_name">Import Material</span>
                 </a>
                 <span class="tooltip">Donate</span>
             </li>
             <li>
                 <a href="{% url 'test' %}">
                     <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span class="links_name">Previous Donations</span>
+                    <span class="links_name">Test Knowledgex</span>
                 </a>
                 <span class="tooltip">My Donations</span>
             </li>    
@@ -442,7 +454,7 @@
         </div>
 
         <!-- Cards Section -->
-        <div class="cards-container">
+        <!-- <div class="cards-container">
             <div class="card">
                 <img src="/static/media/study-set.png" alt="Study Set">
                 <h4>Study Set</h4>
@@ -461,7 +473,7 @@
                 <p>Challenge yourself with quizzes and flashcards.</p>
                 <a href="{% url 'test' %}">View Details</a>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <script>
