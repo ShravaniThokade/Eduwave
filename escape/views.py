@@ -14,6 +14,10 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 import tempfile
+import nltk
+
+nltk.download('punkt')
+nltk.download('punkt_tab') 
 
 
 def homepage(request):
@@ -53,26 +57,26 @@ def dashboard(request):
 
 transcriber = pipeline("automatic-speech-recognition", model="openai/whisper-medium.en")
 
-def transcribe_audio(stream, new_chunk):
-    sr, y = new_chunk
-    y = y.astype(np.float32)
-    y /= np.max(np.abs(y))
+# def transcribe_audio(stream, new_chunk):
+#     sr, y = new_chunk
+#     y = y.astype(np.float32)
+#     y /= np.max(np.abs(y))
 
-    if stream is not None:
-        stream = np.concatenate([stream, y])
-    else:
-        stream = y
-    return stream, transcriber({"sampling_rate": sr, "raw": stream})["text"]
+#     if stream is not None:
+#         stream = np.concatenate([stream, y])
+#     else:
+#         stream = y
+#     return stream, transcriber({"sampling_rate": sr, "raw": stream})["text"]
 
 
-def process_audio(request):
-    if request.method == 'POST':
-        audio_data = request.POST.get('audio')
-        # Process the audio data (e.g., transcribe with Whisper model)
-        transcription = transcribe_audio(audio_data)
-        return JsonResponse({'transcription': transcription})
-    else:
-        return JsonResponse({'error': 'Invalid request method'})
+# def process_audio(request):
+#     if request.method == 'POST':
+#         audio_data = request.POST.get('audio')
+#         # Process the audio data (e.g., transcribe with Whisper model)
+#         transcription = transcribe_audio(audio_data)
+#         return JsonResponse({'transcription': transcription})
+#     else:
+#         return JsonResponse({'error': 'Invalid request method'})
 
 
 def youtube(request):
