@@ -29,8 +29,8 @@
         body {
             height: 100vh;
             display: flex;
-            /* background-image: url('/static/media/explore-study.png');
-            background-size: cover; */
+            background-image: url('/static/media/explore-study.png');
+            background-size: cover;
             background-position: center;
             color: antiquewhite;
         }
@@ -183,7 +183,7 @@
   top: 0;
   height: 100%;
   width: 78px;
-  background: #0242154f;
+  background: #0420b04f;
   z-index: 99;
   transition: all 0.5s ease;
   overflow: hidden;
@@ -302,12 +302,12 @@
   align-items: center;
   text-decoration: none;
   transition: all 0.4s ease;
-  background: #144622;
+  background: #5e62e3;
 }
 
 .sidebar li a:hover {
   background: #fff;
-  color: #0c5e06;
+  color: #363ca9;
 }
 
 .sidebar li a .links_name {
@@ -339,7 +339,7 @@
   left: 0;
   bottom: -8px;
   padding: 10px 14px;
-  background: #22b94869;
+  background: #2e31db69;
   transition: all 0.5s ease;
   overflow: hidden;
 }
@@ -394,6 +394,62 @@
   left: 250px;
   width: calc(100% - 250px);
 }
+
+.container {
+    display: none; /* Initially hidden when not active */
+}
+
+.container.active {
+    display: block; /* Show when active */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+}
+
+.grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Ensures responsiveness */
+    gap: 40px; /* Space between boxes */
+    width: 100%;
+    max-width: 90vw; /* Prevents overflow */
+    height: auto;
+    padding-top: 80px;
+}
+
+.box {
+    border: 2px solid #E3E4E8;
+    border-radius: 12px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 250px; /* Adjust width as needed */
+}
+
+.box:hover {
+    background-color: #f9f9fb;
+    transform: translateY(-3px);
+}
+
+.box i {
+    font-size: 3rem; /* Increase icon size */
+    margin-bottom: 10px;
+}
+
+.box p {
+    font-size: 1.5rem; /* Increase text size */
+    font-weight: bold;
+}
     </style>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
@@ -414,16 +470,23 @@
           <i class='bx bx-menu' id="btn"  onclick="toggleLogo() "></i>
         </div>
         <ul class="nav-list">
+          <li>
+            <a href="#">
+              <i class="fa-solid fa-house"></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
             <li>
                 <a href="{% url 'study_set' %}">
-                    <i class='bx bx-user'></i>
+                  <i class="fa-solid fa-graduation-cap"></i>
                     <span class="links_name">Study Set</span>
                 </a>
                 <span class="tooltip">Study Set</span>
             </li>
             <li>
                 <a href="{% url 'import_materials' %}">
-                    <i class="fa-solid fa-bowl-food"></i>
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
                     <span class="links_name">Import Material</span>
                 </a>
                 <span class="tooltip">Donate</span>
@@ -431,7 +494,7 @@
             <li>
                 <a href="{% url 'test' %}">
                     <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span class="links_name">Test Knowledgex</span>
+                    <span class="links_name">Test Knowledge</span>
                 </a>
                 <span class="tooltip">My Donations</span>
             </li>    
@@ -442,56 +505,101 @@
       </div>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content" id="main-content">
+      <div class="dash">
         <h1>Welcome!</h1>
-        <p>Hope you're doing well. Are you ready to study?</p>
+      <p>Hope you're doing well. Are you ready to study?</p>
+      </div>
+      <div class="study">
+        <p>Study Set</p>
+      </div>
+      <div class="knowledge">
+        <p>Test knowledge</p>
+      </div>
+      <div class="container" id="material-container" style="display: none;">
+          <h1>Add Material</h1>
+          <p>Material you add will be used to personalize StudyFetch with your class material, which can then be used to create flashcards, quizzes, tests, chat with an AI tutor, etc.</p>
+          <div class="grid-container">
+              <div class="box">
+                <i class="fa-solid fa-file-arrow-up" style="color: #2107e4;"></i>
+                Upload Documents
+                <a href="{% url 'generate_summary' %}" class="btn-link"><button>Generate Notes</button></a>
+               </div>
+              <div class="box">
+                <i class="fa-solid fa-microphone-lines" style="color: #0c2146;"></i>
+                Record Live Lecture</div>
+              <div class="box">
+                <i class="fa-brands fa-youtube" style="color: #ff0026;"></i>
+                YouTube Video
+                <a href="{% url 'youtube' %}" class="btn-link"><button>Generate Notes</button></a>
+              </div>
+              <!-- Other boxes -->
+          </div>
+      </div>
+  </div>
 
-        <!-- Profile Section (Initially Hidden) -->
-        <div class="profile-container" id="profile-container">
-            <h3>User Profile</h3>
-            <p><strong>Email:</strong> {{ request.user.email }}</p>
-            <p><strong>Username:</strong> {{ request.user.username }}</p>
-        </div>
+  <script>
+   document.addEventListener("DOMContentLoaded", function() {
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
 
-        <!-- Cards Section -->
-        <!-- <div class="cards-container">
-            <div class="card">
-                <img src="/static/media/study-set.png" alt="Study Set">
-                <h4>Study Set</h4>
-                <p>Organize and access all your personalized notes in one place.</p>
-                <a href="{% url 'study_set' %}">View Details</a>
-            </div>
-            <div class="card">
-                <img src="/static/media/notes.png" alt="Import Materials">
-                <h4>Import Materials</h4>
-                <p>Generate notes from various resources with ease.</p>
-                <a href="{% url 'import_materials' %}">View Details</a>
-            </div>
-            <div class="card">
-                <img src="/static/media/quiz.jpg" alt="Test your knowledge">
-                <h4>Test your Knowledge</h4>
-                <p>Challenge yourself with quizzes and flashcards.</p>
-                <a href="{% url 'test' %}">View Details</a>
-            </div>
-        </div> -->
-    </div>
+    // Ensure sidebar is open by default
+    sidebar.classList.add("open");
 
-    <script>
-        let sidebar = document.querySelector(".sidebar");
-        let closeBtn = document.querySelector("#btn");
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+    });
+
+    const mainContent = document.getElementById('main-content');
+    const materialContainer = document.getElementById('material-container');
+    const dashContent = document.querySelector('.dash');
+    const studyContent = document.querySelector('.study');
+    const knowledgeContent = document.querySelector('.knowledge');
     
-        closeBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("open");
-        });
-    
-        function toggleLogo() {
-            let logo = document.getElementById("logo");
-            if (sidebar.classList.contains("open")) {
-                logo.style.display = "block";
+    // Initial state
+    materialContainer.style.display = 'none';
+    mainContent.style.display = 'block';
+    dashContent.style.display = 'block';
+    studyContent.style.display = 'none'; // Should typically be hidden initially
+    knowledgeContent.style.display = 'none';
+
+    document.querySelectorAll('.nav-list li a').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const contentType = this.querySelector('.links_name').innerText;
+
+            // Logic for displaying different content based on clicked link
+            if (contentType === "Import Material") {
+                materialContainer.style.display = 'block';
+                dashContent.style.display = 'none';
+                studyContent.style.display = 'none';
+                knowledgeContent.style.display = 'none';
+            } else if (contentType === "Dashboard") {
+                materialContainer.style.display = 'none';
+                dashContent.style.display = 'block';
+                mainContent.style.display = 'block';
+                studyContent.style.display = 'none';
+                knowledgeContent.style.display = 'none';
+            } else if (contentType === "Study Set") {
+                materialContainer.style.display = 'none';
+                dashContent.style.display = 'none'; 
+                studyContent.style.display = 'block';
+                knowledgeContent.style.display = 'none';
+            } else if (contentType === "Test Knowledge") {
+                materialContainer.style.display = 'none';
+                dashContent.style.display = 'none'; 
+                studyContent.style.display = 'none';
+                knowledgeContent.style.display = 'block';
             } else {
-                logo.style.display = "none";
+                materialContainer.style.display = 'none';
+                dashContent.style.display = 'none';
+                mainContent.style.display = 'none';
+                studyContent.style.display = 'none';
+                knowledgeContent.style.display = 'none';
             }
-        }
+        });
+    });
+});
     </script>
 </body>
 </html>
