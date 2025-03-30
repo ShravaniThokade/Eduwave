@@ -9,10 +9,12 @@
     <script src="https://kit.fontawesome.com/dd3af09170.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <title>Your Study Companion</title>
     <style>
@@ -84,12 +86,22 @@
             width: 100%;
         }
         .main-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+          font-family: "Roboto Slab", serif;
+          font-optical-sizing: auto;
+          font-weight: 700;
+          font-style: normal;
+          font-size: 4.5rem;
+          margin-bottom: 10px;
+          color: #b8c2e9;
         }
         .main-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+          font-family: "Winky Sans", sans-serif;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-style: normal;
+          font-size: 1.6rem;
+          margin-bottom: 30px;
+          color: rgb(156, 188, 245);
         }
         /* Profile Section */
         .profile-container {
@@ -306,7 +318,7 @@
 }
 
 .sidebar li a:hover {
-  background: #fff;
+  background: #0013a086;
   color: #363ca9;
 }
 
@@ -499,7 +511,8 @@
                 <span class="tooltip">My Donations</span>
             </li>    
           <li >        
-            <a href="{% url 'user_logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>         
+            <a href="{% url 'user_logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+         
           </li>         
         </ul>
       </div>
