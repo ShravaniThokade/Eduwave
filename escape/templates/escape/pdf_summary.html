@@ -17,17 +17,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             flex-direction: column;
             text-align: center;
             color: white;
+            overflow-y: auto;
         }
 
         /* Glassmorphic Container */
         .container {
             background: rgba(255, 255, 255, 0.15);
             padding: 30px;
-            width: 400px;
+            width: 500px;
             border-radius: 15px;
             backdrop-filter: blur(10px);
             box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
@@ -84,26 +85,29 @@
             box-shadow: 0px 8px 20px rgba(255, 153, 0, 0.5);
         }
 
-        /* Summary Box */
+        /* Summary Box - Full Page */
         #summary_result {
-            margin-top: 20px;
+            margin-top: 30px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             text-align: left;
             box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
-            font-size: 16px;
+            font-size: 18px;
             color: white;
-            max-height: 200px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
             overflow-y: auto;
             display: none;
         }
 
         /* Summary Text */
         #summary_content {
-            font-size: 16px;
-            line-height: 1.5;
+            font-size: 18px;
+            line-height: 1.6;
             font-weight: 400;
+            white-space: pre-wrap;  /* Ensures line breaks are preserved */
         }
     </style>
 </head>
@@ -116,39 +120,62 @@
             <input type="file" id="pdf_file" name="pdf_file">
             <button type="button" onclick="uploadPDF()">Generate Summary</button>
         </form>
+    </div>
 
-        <div id="summary_result">
-            <h2>📃 Generated Summary:</h2>
-            <p id="summary_content"></p>
-        </div>
+    <div id="summary_result">
+        <h2>📃 Generated Summary:</h2>
+        <div id="summary_content"></div>
     </div>
 
     <!-- jQuery for AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function uploadPDF() {
-            const formData = new FormData();
-            const pdfFile = document.getElementById('pdf_file').files[0];
-            formData.append('pdf_file', pdfFile);
-    
-            const csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-    
-            $.ajax({
-                type: 'POST',
-                url: '{% url "generate_summary" %}',
-                data: formData,
-                processData: false,
-                contentType: false,
-                headers: {'X-CSRFToken': csrftoken},
-                success: function(response) {
-                    $('#summary_content').text(response.summary);
-                    $('#summary_result').fadeIn();  // Show the summary container smoothly
-                },
-                error: function(error) {
-                    alert('Error generating PDF summary');
+       function uploadPDF() {
+    const formData = new FormData();
+    const pdfFile = document.getElementById('pdf_file').files[0];
+
+    if (!pdfFile) {
+        alert("Please select a PDF file before uploading.");
+        return;
+    }
+
+    formData.append('pdf_file', pdfFile);
+    const csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    $.ajax({
+        type: 'POST',
+        url: '{% url "generate_summary" %}',
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {'X-CSRFToken': csrftoken},
+        success: function(response) {
+            let summaryHtml = "<h2>📃 Question-wise Summary</h2>";
+
+            if (response.summaries) {
+                for (const [question, summary] of Object.entries(response.summaries)) {
+                    summaryHtml += `<div style="margin-bottom: 20px; padding: 15px; background: rgba(255, 255, 255, 0.15); border-radius: 10px;">
+                                        <h3 style="color: #FFD700;">${question}</h3>
+                                        <p style="line-height: 1.5;">${summary.replace(/\n/g, '<br>')}</p>
+                                    </div>`;
                 }
-            });
+            } else {
+                summaryHtml += "<p>No summary available.</p>";
+            }
+
+            $('#summary_content').html(summaryHtml);
+            $('#summary_result').fadeIn();  // Show the summary container smoothly
+
+            // Hide the upload container
+            $('.container').fadeOut();
+        },
+        error: function(error) {
+            alert('Error generating PDF summary');
         }
+    });
+}
+
+
     </script>
 
 </body>

@@ -524,8 +524,26 @@
       <p>Hope you're doing well. Are you ready to study?</p>
       </div>
       <div class="study">
-        <p>Study Set</p>
-      </div>
+        <h2>Study Set</h2>
+        <ul>
+            {% for summary in summaries %}
+                <li>
+                    <strong>Video URL:</strong> 
+                    <a href="{{ summary.video_url }}" target="_blank">{{ summary.video_url }}</a><br>
+                    
+                    {% if summary.pdf_summary %}
+                        <strong>Summary PDF:</strong> 
+                        <a href="{{ summary.pdf_summary.url }}" target="_blank">Download Summary</a>
+                    {% else %}
+                        <strong>No summary available.</strong>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No summaries available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
       <div class="knowledge">
         <p>Test knowledge</p>
       </div>
