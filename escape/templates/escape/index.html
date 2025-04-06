@@ -111,7 +111,7 @@
             margin-bottom: 40px;
         }
 
-        .feature-container {
+       /* .feature-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
@@ -161,8 +161,8 @@
         }
 
         .feature-card:hover .feature-desc {
-            bottom: 0;
-        }
+            bottom: 0; */
+        
 
         
         #how-it-works {
@@ -193,6 +193,258 @@
             padding: 30px;
             background: #061E3B;
         }
+
+        /* From Uiverse.io by suleymanlaarabidev */ 
+        .card {
+  width: 300px; /* wider */
+  height: 150px; /* shorter height */
+  background: rgb(103, 225, 255);
+  transition: all 0.4s;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.705);
+  font-size: 20px;
+  font-weight: 700;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+
+.card:hover {
+  border-radius: 15px;
+  cursor: pointer;
+  transform: scale(1.1);
+  background: rgb(103, 151, 255);
+}
+
+.first-content,
+.second-content {
+  height: 100%;
+  width: 100%;
+  padding: 10px; /* ✅ Add padding to ensure text doesn't touch edges */
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.first-content {
+  transition: all 0.4s;
+  flex-direction: column;
+  opacity: 1;
+}
+
+.card:hover .first-content {
+  height: 0;
+  opacity: 0;
+}
+
+.second-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  flex-direction: column;
+  font-size: 0px;
+  transform: rotate(90deg) scale(-1);
+  transition: all 0.4s;
+}
+
+.card:hover .second-content {
+  opacity: 1;
+  font-size: 1rem; /* ✅ Smaller font for better fit */
+  transform: rotate(0deg);
+}
+
+.second-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  color: #082B51;
+  font-weight: 500;
+  word-wrap: break-word;
+}
+
+
+.multiple-cards{
+    display: flex;
+    justify-content: space-around;
+}
+.feature-card h3 {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+
+.notification {
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  position: relative;
+  width: 18rem;
+  height: 8rem;
+  background: #29292c;
+  border-radius: 1rem;
+  overflow: hidden;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  --gradient: linear-gradient(to bottom, #2eadff, #3d83ff, #7e61ff);
+  --color: #32a6ff
+}
+
+.notification:before {
+  position: absolute;
+  content: "";
+  inset: 0.0625rem;
+  border-radius: 0.9375rem;
+  background: #18181b;
+  z-index: 2
+}
+
+.notification:after {
+  position: absolute;
+  content: "";
+  width: 0.25rem;
+  inset: 0.65rem auto 0.65rem 0.5rem;
+  border-radius: 0.125rem;
+  background: var(--gradient);
+  transition: transform 300ms ease;
+  z-index: 4;
+}
+
+.notification:hover:after {
+  transform: translateX(0.15rem)
+}
+
+.notititle {
+  color: var(--color);
+  padding: 0.65rem 0.25rem 0.4rem 1.25rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+
+.notification:hover .notititle {
+  transform: translateX(0.15rem)
+}
+
+.notibody {
+  color: #99999d;
+  padding: 0 1.25rem;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+
+.notification:hover .notibody {
+  transform: translateX(0.25rem)
+}
+
+.notiglow,
+.notiborderglow {
+  position: absolute;
+  width: 20rem;
+  height: 20rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle closest-side at center, white, transparent);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.notiglow {
+  z-index: 3;
+}
+
+.notiborderglow {
+  z-index: 1;
+}
+
+.notification:hover .notiglow {
+  opacity: 0.1
+}
+
+.notification:hover .notiborderglow {
+  opacity: 0.1
+}
+
+.note {
+  color: var(--color);
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 0.9rem;
+  width: 75%;
+}
+
+#how-it-works {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(to right, #0A2A43, #0E3A60);
+    flex-wrap: wrap;
+}
+
+#how-it-works .info {
+    flex: 1;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+#how-it-works .info h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#how-it-works .info p {
+    font-size: 1.2rem;
+}
+
+.steps {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+    gap: 20px;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Animation for cards */
+.notification {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.notification:nth-child(1) {
+    animation-delay: 0.2s;
+}
+.notification:nth-child(2) {
+    animation-delay: 0.4s;
+}
+.notification:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
     </style>
 </head>
 <body>
@@ -214,8 +466,45 @@
     </section>
 
     <section id="features">
-        <h2>Why Choose Eduwave?</h2>
-        <div class="feature-container">
+        <h2>All you need to do is </h2>
+        <!-- From Uiverse.io by suleymanlaarabidev --> 
+         <div class="multiple-cards">
+            <div class="card">
+                <div class="first-content">
+                <i class="fa fa-youtube-play"></i>
+                <h3>Create an Account</h3>
+                </div>
+                <div class="second-content">
+            <p class="feature-desc">Sign up for an account on eduwave using your email address and create a secure password.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="first-content">
+               <h3>Summarize Content</h3>
+                </div>
+                <div class="second-content">
+                    <p>Paste the link to a YouTube video or upload a PDF document that you want to summarize.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="first-content">
+               <h3>Generate Notes, Flashcards, and Quiz</h3>
+                </div>
+                <div class="second-content">
+                    <p>Get automated notes, flashcards, and quiz questions based on the summarized content.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="first-content">
+               <h3>Review and Study</h3>
+                </div>
+                <div class="second-content">
+                    <p>Review the generated notes, use flashcards for quick revision, and test your knowledge with the quiz feature.</p>
+                </div>
+            </div>
+         </div>
+            
+        <!-- <div class="feature-container">
             <div class="feature-card">
                 <i class="fa fa-youtube-play"></i>
                 <h3>YouTube Summarization</h3>
@@ -240,7 +529,7 @@
                 <p class="feature-desc">Automatically generate flashcards to enhance memory retention.</p>
             </div>
 
-            <!-- <div class="feature-card">
+           <div class="feature-card">
                 <i class="fa fa-file-audio-o"></i>
                 <h3>Audio-to-Text Converter</h3>
                 <p class="feature-desc">Convert speech to text and summarize spoken content easily.</p>
@@ -250,16 +539,37 @@
                 <i class="fa fa-lightbulb-o"></i>
                 <h3>AI-Powered Insights</h3>
                 <p class="feature-desc">Get smart insights and recommendations for better studying.</p>
-            </div> -->
-        </div>
+            </div> 
+        </div> -->
     </section>
 
     <section id="how-it-works">
-        <h2>How It Works</h2>
+        <div class="info">
+            <h2>
+                How to Summarize YouTube Videos / pdfs?
+            </h2>
+            <p>You can easily do this with just 3 steps</p>
+        </div>
         <div class="steps">
-            <div class="step">1. Upload Content</div>
-            <div class="step">2. AI Analyzes It</div>
-            <div class="step">3. Get Summaries & Study</div>
+            <!-- From Uiverse.io by SouravBandyopadhyay --> 
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Step1: Get YouTube video link / pdf</div>
+                <div class="notibody">Copy and paste the YouTube video link / upload the pdf.</div>
+            </div>
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Step2: Generate Summary of YouTube / pdf</div>
+                <div class="notibody">Click the "Generate Summary" button, and Eduwave will fetch the transcript and summarize the YouTube video / PDF</div>
+            </div>
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Step2: Generate Summary of YouTube</div>
+                <div class="notibody">Read the concise summary, and save valuable time.</div>
+            </div>
         </div>
     </section>
 
