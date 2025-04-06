@@ -1,0 +1,636 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/dd3af09170.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <title>Your Study Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+            color: #171717;
+            scroll-behavior: smooth;
+            border: none;
+            outline: none;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            background-image: url('/static/media/explore-study.png');
+            background-size: cover;
+            background-position: center;
+            color: antiquewhite;
+        }
+        /* Sidebar Navigation */
+        .nav-panel {
+            width: 250px;
+            height: 100vh;
+            background: #003366;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .nav-panel h2 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        .nav-panel a {
+            display: flex;
+            align-items: center;
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .nav-panel a i {
+            margin-right: 10px;
+        }
+        .nav-panel a:hover {
+            background: #0055A4;
+        }
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            width: 100%;
+        }
+        .main-content h1 {
+          font-family: "Roboto Slab", serif;
+          font-optical-sizing: auto;
+          font-weight: 700;
+          font-style: normal;
+          font-size: 4.5rem;
+          margin-bottom: 10px;
+          color: #b8c2e9;
+        }
+        .main-content p {
+          font-family: "Winky Sans", sans-serif;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-style: normal;
+          font-size: 1.6rem;
+          margin-bottom: 30px;
+          color: rgb(156, 188, 245);
+        }
+        /* Profile Section */
+        .profile-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: none; /* Initially hidden */
+        }
+        .profile-container h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .profile-container p {
+            font-size: 1rem;
+            color: white;
+        }
+        /* Card Section */
+        /* .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+        }
+        .card {
+            width: 220px;
+            height: 280px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+        .card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .card a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #00D8EF;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .card a:hover {
+            background: #008FB3;
+        } */
+        .main-content {
+  position: absolute;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+}
+
+.sidebar.open ~ .main-content {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+
+        .sidebar {
+  margin: 0;
+  padding: 6px 14px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 78px;
+  background: #0420b04f;
+  z-index: 99;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+.sidebar.open {
+  width: 250px;
+}
+
+.sidebar .logo-details {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.sidebar .logo-details .icon,
+.sidebar .logo-details .logo_name a img {
+  height: 15px;
+  width: 15px;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name a img {
+  opacity: 1;
+}
+
+.sidebar .logo-details #btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.sidebar.open .logo-details #btn {
+  text-align: right;
+}
+
+.sidebar i {
+  color: #fff;
+  height: 60px;
+  min-width: 50px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
+}
+
+.sidebar .nav-list {
+  margin-top: 20px;
+  height: 100%;
+}
+
+.sidebar li {
+  position: relative;
+  margin: 8px 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.sidebar li .tooltip {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 15px);
+  transform: translateY(-50%);
+  z-index: 3;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+.sidebar li:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar.open li .tooltip {
+  display: none;
+}
+
+.sidebar input {
+  font-size: 15px;
+  color: #fff;
+  font-weight: 400;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: #000000;
+}
+
+.sidebar.open input {
+  padding: 0 20px 0 50px;
+  width: 100%;
+}
+
+.sidebar li a {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: #5e62e3;
+}
+
+.sidebar li a:hover {
+  background: #0013a086;
+  color: #363ca9;
+}
+
+.sidebar li a .links_name {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+.sidebar.open li a .links_name {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar li i {
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+
+.sidebar li.profile {
+  position: fixed;
+  height: 60px;
+  width: 78px;
+  left: 0;
+  bottom: -8px;
+  padding: 10px 14px;
+  background: #2e31db69;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+.sidebar.open li.profile {
+  width: 250px;
+}
+
+.sidebar li .profile-details {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar li img {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.sidebar li.profile .name,
+.sidebar li.profile .mail {
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.sidebar li.profile .mail {
+  font-size: 12px;
+}
+
+.sidebar .profile #log_out {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar.open .profile #log_out {
+  width: 50px;
+  background: none;
+}
+
+.sidebar.open ~ .home-section {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+.container {
+    display: none; /* Initially hidden when not active */
+}
+
+.container.active {
+    display: block; /* Show when active */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+}
+
+.grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Ensures responsiveness */
+    gap: 40px; /* Space between boxes */
+    width: 100%;
+    max-width: 90vw; /* Prevents overflow */
+    height: auto;
+    padding-top: 80px;
+}
+
+.box {
+    border: 2px solid #E3E4E8;
+    border-radius: 12px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 250px; /* Adjust width as needed */
+}
+
+.box:hover {
+    background-color: #f9f9fb;
+    transform: translateY(-3px);
+}
+
+.box i {
+    font-size: 3rem; /* Increase icon size */
+    margin-bottom: 10px;
+}
+
+.box p {
+    font-size: 1.5rem; /* Increase text size */
+    font-weight: bold;
+}
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <!-- <div class="nav-panel">
+        <h2>EDUWAVE</h2>
+        <a href="#"><i class="fas fa-compass"></i> Discover</a>
+        <a href="#" id="profile-btn"><i class="fas fa-user"></i> Profile</a>
+        <a href="#"><i class="fas fa-bullseye"></i> Goals</a>
+        <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+        <a href="{% url 'user_logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div> -->
+    <div class="sidebar">
+        <div class="logo-details">
+          <div class="logo_name" id="logo" style="display: none;">
+          <img src="images/logo2.png" alt="">              </div>
+          <i class='bx bx-menu' id="btn"  onclick="toggleLogo() "></i>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <a href="#">
+              <i class="fa-solid fa-house"></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+            <li>
+                <a href="{% url 'study_set' %}">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                    <span class="links_name">Study Set</span>
+                </a>
+                <span class="tooltip">Study Set</span>
+            </li>
+            <li>
+                <a href="{% url 'import_materials' %}">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span class="links_name">Import Material</span>
+                </a>
+                <span class="tooltip">Donate</span>
+            </li>
+            <li>
+                <a href="{% url 'test' %}">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span class="links_name">Test Knowledge</span>
+                </a>
+                <span class="tooltip">My Donations</span>
+            </li>    
+          <li >        
+            <a href="{% url 'user_logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+         
+          </li>         
+        </ul>
+      </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+      <div class="dash">
+        <h1>Welcome!</h1>
+      <p>Hope you're doing well. Are you ready to study?</p>
+      </div>
+      <div class="study">
+        <h2>Study Set</h2>
+        <ul>
+            {% for summary in summaries %}
+                <li>
+                    <strong>Video URL:</strong> 
+                    <a href="{{ summary.video_url }}" target="_blank">{{ summary.video_url }}</a><br>
+                    
+                    {% if summary.pdf_summary %}
+                        <strong>Summary PDF:</strong> 
+                        <a href="{{ summary.pdf_summary.url }}" target="_blank">Download Summary</a>
+                    {% else %}
+                        <strong>No summary available.</strong>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No summaries available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+      <div class="knowledge">
+        <p>Test knowledge</p>
+      </div>
+      <div class="container" id="material-container" style="display: none;">
+          <h1>Add Material</h1>
+          <p>Material you add will be used to personalize StudyFetch with your class material, which can then be used to create flashcards, quizzes, tests, chat with an AI tutor, etc.</p>
+          <div class="grid-container">
+              <div class="box">
+                <i class="fa-solid fa-file-arrow-up" style="color: #2107e4;"></i>
+                Upload Documents
+                <a href="{% url 'generate_summary' %}" class="btn-link"><button>Generate Notes</button></a>
+               </div>
+              <div class="box">
+                <i class="fa-solid fa-microphone-lines" style="color: #0c2146;"></i>
+                Record Live Lecture</div>
+              <div class="box">
+                <i class="fa-brands fa-youtube" style="color: #ff0026;"></i>
+                YouTube Video
+                <a href="{% url 'youtube' %}" class="btn-link"><button>Generate Notes</button></a>
+              </div>
+              <!-- Other boxes -->
+          </div>
+      </div>
+  </div>
+
+  <script>
+   document.addEventListener("DOMContentLoaded", function() {
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+
+    // Ensure sidebar is open by default
+    sidebar.classList.add("open");
+
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+    });
+
+    const mainContent = document.getElementById('main-content');
+    const materialContainer = document.getElementById('material-container');
+    const dashContent = document.querySelector('.dash');
+    const studyContent = document.querySelector('.study');
+    const knowledgeContent = document.querySelector('.knowledge');
+    
+    // Initial state
+    materialContainer.style.display = 'none';
+    mainContent.style.display = 'block';
+    dashContent.style.display = 'block';
+    studyContent.style.display = 'none'; // Should typically be hidden initially
+    knowledgeContent.style.display = 'none';
+
+    document.querySelectorAll('.nav-list li a').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const contentType = this.querySelector('.links_name').innerText;
+
+            // Logic for displaying different content based on clicked link
+            if (contentType === "Import Material") {
+                materialContainer.style.display = 'block';
+                dashContent.style.display = 'none';
+                studyContent.style.display = 'none';
+                knowledgeContent.style.display = 'none';
+            } else if (contentType === "Dashboard") {
+                materialContainer.style.display = 'none';
+                dashContent.style.display = 'block';
+                mainContent.style.display = 'block';
+                studyContent.style.display = 'none';
+                knowledgeContent.style.display = 'none';
+            } else if (contentType === "Study Set") {
+                materialContainer.style.display = 'none';
+                dashContent.style.display = 'none'; 
+                studyContent.style.display = 'block';
+                knowledgeContent.style.display = 'none';
+            } else if (contentType === "Test Knowledge") {
+                materialContainer.style.display = 'none';
+                dashContent.style.display = 'none'; 
+                studyContent.style.display = 'none';
+                knowledgeContent.style.display = 'block';
+            } else {
+                materialContainer.style.display = 'none';
+                dashContent.style.display = 'none';
+                mainContent.style.display = 'none';
+                studyContent.style.display = 'none';
+                knowledgeContent.style.display = 'none';
+            }
+        });
+    });
+});
+    </script>
+</body>
+</html>

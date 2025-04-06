@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Materials</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #3a86ff, #8338ec);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        /* Header Description */
+        .description {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .description h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Container Styling */
+        #container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            width: 80%;
+        }
+
+        /* Glassmorphic Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            width: 300px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h4 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        /* Buttons */
+        .btn-link button {
+            background: linear-gradient(135deg, #ffcc00, #ff6600);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+            box-shadow: 0px 5px 15px rgba(255, 153, 0, 0.3);
+        }
+
+        .btn-link button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 20px rgba(255, 153, 0, 0.5);
+        }
+
+        /* Images */
+        .image2 {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="description">
+        <h1>📥 Import Materials from Different Sources</h1>
+    </div>
+
+    <div id="container">
+        <div class="card">
+            <h4>🎥 Generate Notes from YouTube Videos</h4>
+            <a href="{% url 'youtube' %}" class="btn-link"><button>Generate Notes</button></a>
+            <img src="{% static '/static/media/import_youtube.jpg' %}" class="image2" alt="YouTube Image">
+        </div>
+
+        <div class="card">
+            <h4>📄 Generate Notes from Local PDFs</h4>
+            <a href="{% url 'generate_summary' %}" class="btn-link"><button>Generate Notes</button></a>
+            <img src="{% static '/static/media/local_device.jpg' %}" class="image2" alt="PDF Image">
+        </div>
+    </div>
+
+</body>
+</html>

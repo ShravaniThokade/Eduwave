@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Text Summarizer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2e127b79, #311d7593);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+            overflow-y: auto;
+        }
+
+        /* Glassmorphic Container */
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            width: 500px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* File Input */
+        input[type="file"] {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Button Styling */
+        button {
+            background: linear-gradient(135deg, #2e127b79, #311d7593);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+            box-shadow: 0px 5px 15px rgba(255, 153, 0, 0.3);
+            margin-top: 15px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 20px rgba(255, 153, 0, 0.5);
+        }
+
+        /* Summary Box - Full Page */
+        #summary_result {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
+            font-size: 18px;
+            color: white;
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow-y: auto;
+            display: none;
+        }
+
+        /* Summary Text */
+        #summary_content {
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 400;
+            white-space: pre-wrap;
+            /* Ensures line breaks are preserved */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📄 PDF Text Summarizer</h1>
+        <form id="pdf_upload_form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="pdf_file">Upload a PDF File:</label>
+            <input type="file" id="pdf_file" name="pdf_file">
+            <button type="button" onclick="uploadPDF()">Generate Summary</button>
+        </form>
+    </div>
+
+    <div id="summary_result">
+        <h2>📃 Generated Summary:</h2>
+        <div id="summary_content"></div>
+    </div>
+
+    <!-- jQuery for AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function uploadPDF() {
+            const formData = new FormData();
+            const pdfFile = document.getElementById('pdf_file').files[0];
+
+            if (!pdfFile) {
+                alert("Please select a PDF file before uploading.");
+                return;
+            }
+
+            formData.append('pdf_file', pdfFile);
+            const csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "generate_summary" %}',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'X-CSRFToken': csrftoken },
+                success: function (response) {
+                    let summaryHtml = "<h2>📃 Question-wise Summary</h2>";
+
+                    // if (response.summaries) {
+                    // for (const [question, summary] of Object.entries(response.summaries)) {
+                    // summaryHtml += `<div style="margin-bottom: 20px; padding: 15px; background: rgba(255, 255, 255, 0.15); border-radius: 10px;">
+                    // <h3 style="color: #FFD700;">${question}</h3>
+                    // <p style="line-height: 1.5;">${summary.replace(/\n/g, '<br>')}</p>
+                    // </div>`;
+                    // }
+                    // } else {
+                    // summaryHtml += "<p>No summary available.</p>";
+                    // }
+
+                    // $('#summary_content').html(summaryHtml);
+                    // $('#summary_result').fadeIn();  // Show the summary container smoothly
+
+                    // Hide the upload container
+                    // $('.container').fadeOut();
+                    // },
+                    if (response.summary) {
+                        const summaryText = response.summary.replace(/\n/g, '<br>');
+                        const summaryHtml = `
+                            <div style="margin-bottom: 20px; padding: 15px; background: rgba(255, 255, 255, 0.15); border-radius: 10px;">
+                                <p style="line-height: 1.5;">${summaryText}</p>
+                            </div>`;
+                        $('#summary_content').html(summaryHtml);
+                        $('#summary_result').fadeIn();
+                        $('.container').fadeOut();
+                    } else {
+                        $('#summary_content').html("<p>No summary available.</p>");
+                        $('#summary_result').fadeIn();
+                    }
+                },
+                error: function (error) {
+                    alert('Error generating PDF summary');
+                }
+            });
+        }
+
+
+    </script>
+
+</body>
+
+</html>

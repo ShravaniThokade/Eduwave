@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduwave - Your AI Study Companion</title>
+    {% load static %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #082B51;
+            color: #ffffff;
+        }
+
+        
+        #nav {
+            height: 80px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            background-color: rgba(15, 15, 16, 0.6);
+            z-index: 999;
+            padding: 0 20px;
+        }
+
+        #nav a {
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            color: #ffffff;
+            transition: 0.3s;
+        }
+
+        #nav a:hover {
+            color: #24B1ED;
+        }
+
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            background: url("{% static 'media/study-design.jpg' %}") center/cover no-repeat;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .get-started-button {
+            padding: 12px 24px;
+            background-color: #24B1ED;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .get-started-button:hover {
+            background-color: #4E67C3;
+        }
+
+        
+        #features {
+            text-align: center;
+            padding: 80px 20px;
+            background-color: #0A2A43;
+        }
+
+        #features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .feature-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 0 10%;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            color: #082B51;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 40px;
+            color: #24B1ED;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 1rem;
+            color: #ffffff;
+            background: #24B1ED;
+            padding: 15px;
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            transition: bottom 0.3s ease-in-out;
+        }
+
+        
+        .feature-card:hover {
+            transform: scale(1.1);
+        }
+
+        .feature-card:hover .feature-desc {
+            bottom: 0;
+        }
+
+        
+        #how-it-works {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(to right, #0A2A43, #0E3A60);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #061E3B;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="nav">
+            <a href="#hero">Home</a>
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>EDUWAVE - Your AI-Powered Study Companion!</h1>
+            <p>Eduwave is a cutting-edge AI-powered study companion designed to revolutionize the way you learn and study. With Eduwave, you can transform your educational experience, making it more efficient, interactive, and enjoyable</p>
+            <a href="{% url 'register' %}" class="get-started-button">Get Started</a>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2>Why Choose Eduwave?</h2>
+        <div class="feature-container">
+            <div class="feature-card">
+                <i class="fa fa-youtube-play"></i>
+                <h3>YouTube Summarization</h3>
+                <p class="feature-desc">Upload a link & get instant AI-generated summaries.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa fa-file-pdf-o"></i>
+                <h3>PDF Summarization</h3>
+                <p class="feature-desc">Extract key points from any document for quick learning.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa fa-question-circle"></i>
+                <h3>MCQ Generator</h3>
+                <p class="feature-desc">Turn summaries into interactive quiz questions instantly.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa fa-book"></i>
+                <h3>AI Flashcards</h3>
+                <p class="feature-desc">Automatically generate flashcards to enhance memory retention.</p>
+            </div>
+
+            <!-- <div class="feature-card">
+                <i class="fa fa-file-audio-o"></i>
+                <h3>Audio-to-Text Converter</h3>
+                <p class="feature-desc">Convert speech to text and summarize spoken content easily.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa fa-lightbulb-o"></i>
+                <h3>AI-Powered Insights</h3>
+                <p class="feature-desc">Get smart insights and recommendations for better studying.</p>
+            </div> -->
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">1. Upload Content</div>
+            <div class="step">2. AI Analyzes It</div>
+            <div class="step">3. Get Summaries & Study</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Eduwave. All rights reserved.</p>
+    </footer>
+</body>
+</html>
