@@ -13,5 +13,4 @@ urlpatterns = [
     path('test', views.test, name="test"),
     path('youtube', views.youtube, name="youtube"),
     path('generate_summary', views.generate_summary, name='generate_summary'),
-    # path('youtube_transcribe_summary', views.youtube_transcribe_summary, name='youtube_summary'),
 ]

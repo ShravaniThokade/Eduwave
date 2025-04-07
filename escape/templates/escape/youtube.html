@@ -143,17 +143,17 @@
         </div>
 
         <div class="transcript-box">
-          <h3>📝 Transcript</h3>
-          {% if transcript %}
-            {% for line in transcript %}
-              <div class="transcript-line">
-                <span class="timestamp">{{ line.timestamp }}</span> - {{ line.text }}
-              </div>
-            {% endfor %}
-          {% else %}
-            <p>Transcript not available.</p>
-          {% endif %}
+        
+          {% if insights %}
+    <h2>💡 Key Insights</h2>
+    <ul>
+        {% for sentence in insights %}
+            <li>{{ sentence }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
         </div>
+        
       </div>
     </div>
     {% endif %}
